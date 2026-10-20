@@ -1,5 +1,5 @@
 package personnel;
 
-public class medicalOfficers(){
+public class medicalOfficers{
 
 }

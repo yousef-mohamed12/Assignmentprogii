@@ -1,5 +1,5 @@
 package personnel;
 
-public class scientists(){
+public class scientists{
 
 }
