@@ -1,4 +1,5 @@
 package CrewMember;
+import ColonyAgent.ColonyAgent;
 
 public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;

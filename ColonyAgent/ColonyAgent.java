@@ -1,5 +1,6 @@
 import java.util.HashSet;
 import java.util.Set;
+package ColonyAgent;
 
 public abstract class ColonyAgent {
 
