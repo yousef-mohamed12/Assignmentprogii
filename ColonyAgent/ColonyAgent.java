@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 import Enums.Capability;
 
+
 public abstract class ColonyAgent {
 
 
@@ -25,7 +26,6 @@ public abstract class ColonyAgent {
                 ? new HashSet<>(capabilities)
                 : new HashSet<>();
     }
-
 
 
     public boolean canPerform(Mission mission) {
