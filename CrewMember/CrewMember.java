@@ -6,9 +6,9 @@ import Enums.Capability;
 
 public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;
-    protected String [] skills;
+    protected Set<String> skills;
 
-    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, String [] skills){
+    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, Set<String> skills){
         super(id, name, health, currentLocation, capabilities);
         setFatigueLevel(fatigueLevel);
 
@@ -25,7 +25,35 @@ public abstract class CrewMember extends ColonyAgent {
         this.available = availabile;
     }
 
-    public abstract void getRoleName();
+    
+
+    public boolean hasSkill(String skill){
+        if (skill in this.skills){
+            return true;
+        }
+        else
+            return false;
+    }
+    public void increaseFatigue(int amt){
+        // validation 0< amt < 100 and the sum of fatiguelevel+amt??
+    }
+    public void rest(int amt){
+        // validation 0< amt < 100 and the sum of fatiguelevel-amt??
+    }
+
+    @Override
+    public boolean isOperationalAndHealthy() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isOperationalAndHealthy'");
+    }
+
+    @Override
+    public void onTimeStep(int units) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onTimeStep'");
+    }
+    
+    public abstract String getRoleName();
 
  
 }
