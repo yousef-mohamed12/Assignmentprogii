@@ -8,18 +8,24 @@ public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;
     protected String [] skills;
 
-    public CrewMember(String id, String name, int health, String currentLocation, boolean availabile, Set<Capability> capabilities, int fatigueLevel, String [] skills){
-        super(id, name, health, currentLocation, availabile, capabilities);
-        setHealth(health);
-        setAvailable(availabile);
+    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, String [] skills){
+        super(id, name, health, currentLocation, capabilities);
+        setFatigueLevel(fatigueLevel);
+
+        this.available = true;
     }
-    public void setHealth(int health){
-        if (health <= 0 || health > 100)
-            System.out.println(" health must be larger than 0 and less than or equal to 100 ");
+    
+    public void setFatigueLevel(int fatigueLevel){
+        if (fatigueLevel <= 0 || fatigueLevel > 100)
+            System.out.println(" Fatigue Level must be larger than 0 and less than or equal to 100 ");
         else
-            this.health = health;
+            this.fatigueLevel = fatigueLevel;
     }
     public void setAvailable(boolean availabile){
         this.available = availabile;
     }
+
+    public abstract void getRoleName();
+
+ 
 }

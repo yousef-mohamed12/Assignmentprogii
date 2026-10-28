@@ -1,6 +1,7 @@
+package ColonyAgent;
 import java.util.HashSet;
 import java.util.Set;
-package ColonyAgent;
+import Enums.Capability;
 
 public abstract class ColonyAgent {
 
@@ -24,6 +25,7 @@ public abstract class ColonyAgent {
                 ? new HashSet<>(capabilities)
                 : new HashSet<>();
     }
+
 
 
     public boolean canPerform(Mission mission) {
