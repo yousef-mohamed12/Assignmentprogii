@@ -1,3 +1,5 @@
+package Enums;
+
 public enum EmergencyType {
     OXYGEN_LEAK,
     FIRE,

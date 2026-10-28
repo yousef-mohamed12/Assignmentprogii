@@ -1,4 +1,6 @@
 package CrewMember;
+import java.util.Set;
+
 import ColonyAgent.ColonyAgent;
 import Enums.Capability;
 
@@ -6,8 +8,8 @@ public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;
     protected String [] skills;
 
-    public CrewMember(String id, String name, int health, String currentLocation, boolean availabile, String <> capabilities, int fatigueLevel, String [] skills){
-        super(id, name, health, currentLocation);
+    public CrewMember(String id, String name, int health, String currentLocation, boolean availabile, Set<Capability> capabilities, int fatigueLevel, String [] skills){
+        super(id, name, health, currentLocation, availabile, capabilities);
         setHealth(health);
         setAvailable(availabile);
     }
