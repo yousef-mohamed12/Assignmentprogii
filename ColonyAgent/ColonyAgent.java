@@ -2,7 +2,8 @@ package ColonyAgent;
 import java.util.HashSet;
 import java.util.Set;
 import Enums.Capability;
-
+import Mission.Mission;
+import java.util.UUID;
 
 public abstract class ColonyAgent {
 
@@ -13,10 +14,10 @@ public abstract class ColonyAgent {
     protected String currentLocation;
     protected boolean available;
     protected Set<Capability> capabilities;
-
+    private String uniqueKey = UUID.randomUUID().toString();
 
     protected ColonyAgent(String id, String name, String currentLocation, Set<Capability> capabilities) {
-        this.id = id;
+        this.id = id + uniqueKey;
         this.name = name;
         this.health = 100;
         this.currentLocation = currentLocation;
@@ -25,7 +26,6 @@ public abstract class ColonyAgent {
                 ? new HashSet<>(capabilities)
                 : new HashSet<>();
     }
-
 
     public boolean canPerform(Mission mission) {
 
@@ -47,4 +47,34 @@ public abstract class ColonyAgent {
     public abstract void onTimeStep(int units);
 
     public abstract void performDuty();
+
+
+    public String getId() {
+        return id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public int getHealth() {
+        return health;
+    }
+
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+
+    public Set<Capability> getCapabilities() {
+        return capabilities;
+    }
 }

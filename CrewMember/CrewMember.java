@@ -17,12 +17,8 @@ public abstract class CrewMember extends ColonyAgent {
 
     }
 
-    public boolean hasSkill(String skill){
-        if (skill in this.skills){
-            return true;
-        }
-        else
-            return false;
+    public boolean hasSkill(Skills skill){
+        return this.skills.contains(skill);
     }
     public void increaseFatigue(int amt){
         //amt cannot be less than zero
