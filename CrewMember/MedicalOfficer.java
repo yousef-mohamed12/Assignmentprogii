@@ -6,9 +6,9 @@ import Enums.*;
 
 public class MedicalOfficer extends CrewMember {
 
-    public MedicalOfficer(String id, String name, int health, String currentLocation, Set<Capability> capabilities,
-            int fatigueLevel, Set<Skills> skills) {
-        super(id, name, health, currentLocation, capabilities, fatigueLevel, skills);
+    public MedicalOfficer(String id, String name, String currentLocation, Set<Capability> capabilities,
+             Set<Skills> skills) {
+        super(id, name, currentLocation, capabilities, skills);
         //TODO Auto-generated constructor stub
     }
 

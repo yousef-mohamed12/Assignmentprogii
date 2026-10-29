@@ -10,24 +10,12 @@ public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;
     protected Set<Skills> skills;
 
-    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, Set<Skills> skills){
-        super(id, name, health, currentLocation, capabilities);
-        setFatigueLevel(fatigueLevel);
+    public CrewMember(String id, String name,String currentLocation, Set<Capability> capabilities,  Set<Skills> skills){
+        super(id, name,currentLocation, capabilities);
+        this.fatigueLevel = 0;
         this.skills = new HashSet<>(skills);
-        this.available = true;
-    }
-    
-    public void setFatigueLevel(int fatigueLevel){
-        if (fatigueLevel <= 0 || fatigueLevel > 100)
-            System.out.println(" Fatigue Level must be larger than 0 and less than or equal to 100 ");
-        else
-            this.fatigueLevel = fatigueLevel;
-    }
-    public void setAvailable(boolean availabile){
-        this.available = availabile;
-    }
 
-    
+    }
 
     public boolean hasSkill(String skill){
         if (skill in this.skills){
@@ -38,27 +26,41 @@ public abstract class CrewMember extends ColonyAgent {
     }
     public void increaseFatigue(int amt){
         //amt cannot be less than zero
-        if(this.fatigueLevel + amt > 100){
+        if(this.fatigueLevel + amt > 100)
             this.fatigueLevel = 100;
-            this.available = false; //may he rest in peace
-        }
-        else if(this.fatigueLevel + amt >= 80 && this.inMission){
+        else
             this.fatigueLevel += amt;
-            this.available = false;
-        }
+        isOperationalAndHealthy();
     }
     public void rest(int amt){
-        // validation 0< amt < 100 and the sum of fatiguelevel-amt??
+        //amt cannot be less than zero
+        if(this.fatigueLevel - amt < 0){
+            this.fatigueLevel = 0;    
+        }
+        else
+            this.fatigueLevel -= amt;
+        isOperationalAndHealthy();
     }
 
     @Override
     public boolean isOperationalAndHealthy() {
-        if( this.health >= 60 && this.fatigueLevel <= 40)
+        if( this.health >= 60 && this.fatigueLevel <= 40 ){
+            this.available = true;
             return true;
-        else
+        }
+        else{
+            this.available = false;
             return false;
+        }
+            
     }
+    public boolean isHuman() {
+      return true;
+   }
 
+   public boolean isRobotic() {
+      return false;
+   }
     @Override
     public void onTimeStep(int units) {
         // TODO Auto-generated method stub

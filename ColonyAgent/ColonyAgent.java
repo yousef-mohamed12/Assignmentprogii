@@ -15,11 +15,10 @@ public abstract class ColonyAgent {
     protected Set<Capability> capabilities;
 
 
-    protected ColonyAgent(String id, String name, int health,
-                          String currentLocation, Set<Capability> capabilities) {
+    protected ColonyAgent(String id, String name, String currentLocation, Set<Capability> capabilities) {
         this.id = id;
         this.name = name;
-        this.health = health;
+        this.health = 100;
         this.currentLocation = currentLocation;
         this.available = true;
         this.capabilities = (capabilities != null)
@@ -41,7 +40,7 @@ public abstract class ColonyAgent {
     public boolean hasCapability(Capability cap) {
        
     }
-
+    
 
     public abstract boolean isOperationalAndHealthy();
 
