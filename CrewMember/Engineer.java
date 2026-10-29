@@ -2,12 +2,13 @@ package CrewMember;
 
 import java.util.Set;
 
-import Enums.Capability;
+import Enums.*;
+import Mission.Mission;
 
 public class Engineer extends CrewMember {
 
     public Engineer(String id, String name, int health, String currentLocation, Set<Capability> capabilities,
-            int fatigueLevel, Set<String> skills) {
+            int fatigueLevel, Set<Skills> skills) {
                 
         super(id, name, health, currentLocation, capabilities, fatigueLevel, skills);
         //TODO Auto-generated constructor stub

@@ -1,17 +1,19 @@
 package CrewMember;
+
+import java.util.HashSet;
 import java.util.Set;
 
 import ColonyAgent.ColonyAgent;
-import Enums.Capability;
+import Enums.*;
 
 public abstract class CrewMember extends ColonyAgent {
     protected int fatigueLevel;
-    protected Set<String> skills;
+    protected Set<Skills> skills;
 
-    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, Set<String> skills){
+    public CrewMember(String id, String name, int health, String currentLocation, Set<Capability> capabilities, int fatigueLevel, Set<Skills> skills){
         super(id, name, health, currentLocation, capabilities);
         setFatigueLevel(fatigueLevel);
-
+        this.skills = new HashSet<>(skills);
         this.available = true;
     }
     
@@ -35,7 +37,15 @@ public abstract class CrewMember extends ColonyAgent {
             return false;
     }
     public void increaseFatigue(int amt){
-        // validation 0< amt < 100 and the sum of fatiguelevel+amt??
+        //amt cannot be less than zero
+        if(this.fatigueLevel + amt > 100){
+            this.fatigueLevel = 100;
+            this.available = false; //may he rest in peace
+        }
+        else if(this.fatigueLevel + amt >= 80 && this.inMission){
+            this.fatigueLevel += amt;
+            this.available = false;
+        }
     }
     public void rest(int amt){
         // validation 0< amt < 100 and the sum of fatiguelevel-amt??
@@ -43,8 +53,10 @@ public abstract class CrewMember extends ColonyAgent {
 
     @Override
     public boolean isOperationalAndHealthy() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isOperationalAndHealthy'");
+        if( this.health >= 60 && this.fatigueLevel <= 40)
+            return true;
+        else
+            return false;
     }
 
     @Override
