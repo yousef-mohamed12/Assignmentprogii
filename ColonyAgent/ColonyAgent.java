@@ -11,7 +11,7 @@ public abstract class ColonyAgent {
     protected String name;
     protected int health;
     protected String currentLocation;
-    protected boolean available, inMission;
+    protected boolean available;
     protected Set<Capability> capabilities;
 
 
@@ -20,7 +20,6 @@ public abstract class ColonyAgent {
         this.id = id;
         this.name = name;
         this.health = health;
-        this.inMission = false;
         this.currentLocation = currentLocation;
         this.available = true;
         this.capabilities = (capabilities != null)
