@@ -1,44 +1,68 @@
 package Mission;
 
-import ColonyAgent.ColonyAgent;
-import Enums.EnvironmentCondition;
-import Equipment.Equipment;
-import Facility.Laboratory;
 import java.util.List;
 
+import Enums.*;
+import ColonyAgent.ColonyAgent;
+import MarsColony.*;
+import CrewMember.*;
+import Facility.*;
+import Equipment.Equipment;
+
 public class ResearchMission extends Mission {
+    private final String requiredSkill;
+    private final Laboratory laboratory;
+    private final Equipment scientificEquipment;
 
-    private String requiredSkill;
-    private Laboratory laboratory;
-    private Equipment scientificEquipment;
-
-    public ResearchMission(String id, String name, String targetLocation, int totalDuration,
-                           String requiredSkill, Laboratory laboratory,
-                           Equipment scientificEquipment) {
-        super(id, name, targetLocation, totalDuration);
+    public ResearchMission(String id, String name, int duration,
+            String requiredSkill, Laboratory laboratory,
+            Equipment scientificEquipment) {
+        super(id, name, laboratory != null ? laboratory.getName() : "Laboratory", duration);
         this.requiredSkill = requiredSkill;
         this.laboratory = laboratory;
         this.scientificEquipment = scientificEquipment;
     }
 
     @Override
-    public boolean isAgentCompatible(ColonyAgent a) {
-        
+    public boolean isAgentCompatible(ColonyAgent agent) {
+        if (!agent.hasCapability(Capability.SCIENTIFIC_RESEARCH)) {
+            return false;
+        }
+        if (agent.isHuman()) {
+            return ((CrewMember) agent).hasSkill(requiredSkill);
+        }
+        return false;
     }
 
     @Override
-    public String validateTeamAndFacilities(List<ColonyAgent> a, MarsColony c) {
-       
+    public String validateTeamAndFacilities(List<ColonyAgent> candidateAgents, MarsColony colony) {
+        if (laboratory == null || !laboratory.isOperational()) {
+            return "Target laboratory is not operational.";
+        }
+        if (scientificEquipment == null || !scientificEquipment.isOperational()) {
+            return "Required scientific equipment is missing or damaged.";
+        }
+        boolean hasQualifiedScientist = false;
+        for (ColonyAgent agent : candidateAgents) {
+            if (!agent.canPerform(this)) {
+                return "no Agent possess the required capability.";
+            }
+            hasQualifiedScientist = true;
+        }
+        if (!hasQualifiedScientist) {
+            return "Research mission requires at least one scientist with skill '" + requiredSkill + "'.";
+        }
+        return null;
     }
 
-    // Required by Mission; not shown in the UML for this class
     @Override
-    public String checkEnvironmentalCompatibility(EnvironmentCondition e) {
-        
+    public String checkEnvironmentalCompatibility(EnvironmentCondition condition) {
+        return null;
     }
 
     @Override
-    protected void onMissionComplete(MarsColony c) {
+    protected void onMissionComplete(MarsColony colony) {
+
     }
 
     @Override
